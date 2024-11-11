@@ -2,5 +2,8 @@
   "dependencies": {
     "axios": "^1.7.7",
     "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
   }
 }

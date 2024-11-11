@@ -4,7 +4,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",                
+    "start:frontend": "live-server frontend",  
+    "dev:backend": "nodemon server.js"         
   },
   "keywords": [],
   "author": "",
@@ -12,5 +14,9 @@
   "description": "",
   "dependencies": {
     "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "live-server": "^1.2.2"                   
   }
 }
