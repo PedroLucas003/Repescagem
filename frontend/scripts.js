@@ -1,4 +1,3 @@
-const apiKey = "ba041792daf2902748de400a4dbadba5";
 // Constantes para manipulação de elementos HTML
 const cityInput = document.querySelector("#city-input");
 const searchBtn = document.querySelector("#search");
@@ -57,17 +56,33 @@ const showWeatherData = async (city) => {
 
   const data = await getWeatherData(city);
 
-  if (data && data.cod === 200) {
-    cityElement.innerText = data.name;
-    tempElement.innerText = parseInt(data.main.temp);
-    descElement.innerText = data.weather[0].description;
-    weatherIconElement.setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
-    );
-    // countryElement.innerText = data.sys.country;
-    umidityElement.innerText = `${data.main.humidity}%`;
-    windElement.innerText = `${data.wind.speed}km/h`;
+  if (data) {
+    // Verifique se os dados são da OpenWeather (com "cod" e "weather") ou da Weatherstack (com "current")
+    if (data.cod === 200) {
+      // Dados da OpenWeather
+      cityElement.innerText = data.name;
+      tempElement.innerText = parseInt(data.main.temp);
+      descElement.innerText = data.weather[0].description;
+      weatherIconElement.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
+      );
+      // countryElement.innerText = data.sys.country;
+      umidityElement.innerText = `${data.main.humidity}%`;
+      windElement.innerText = `${data.wind.speed}km/h`;
+    } else if (data.current) {
+      // Dados da Weatherstack
+      cityElement.innerText = data.location.name;
+      tempElement.innerText = parseInt(data.current.temperature);
+      descElement.innerText = data.current.weather_descriptions[0];
+      weatherIconElement.setAttribute(
+        "src",
+        data.current.weather_icons[0]
+      );
+      // countryElement.innerText = data.location.country;
+      umidityElement.innerText = `${data.current.humidity}%`;
+      windElement.innerText = `${data.current.wind_speed}km/h`;
+    }
 
     // Exibir os dados climáticos
     weatherContainer.classList.remove("hide");
